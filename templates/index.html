@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+  <title>감정 분석</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Raleway"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Black+And+White+Picture&family=Black+Han+Sans&family=Cute+Font&family=Do+Hyeon&family=Dokdo&family=East+Sea+Dokdo&family=Gaegu&family=Gamja+Flower&family=Gothic+A1&family=Gugi&family=Hi+Melody&family=Jua&family=Kirang+Haerang&family=Nanum+Brush+Script&family=Nanum+Gothic&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&family=Nanum+Pen+Script&family=Noto+Sans+KR&family=Noto+Serif+KR&family=Poor+Story&family=Single+Day&family=Song+Myung&family=Stylish&family=Sunflower:wght@300&family=Yeon+Sung&display=swap"
+    rel="stylesheet"
+  />
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+      body,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Raleway", sans-serif;
+      }
+
+      h1{
+        font-family: 'Gugi', cursive;
+        color: #fa867b;
+      }
+
+      body,
+      html {
+        height: 100%;
+        line-height: 1.8;
+        background-color: #F7CAC9;
+        font-family: 'Nato Serif KR', sans-serif;
+      }
+
+      /* Full height image header */
+      .bgimg-1 {
+        background-position: center;
+        background-size: cover;
+        background-image: url("../static/source/emotion-bgr.jpg");
+        background-repeat: no-repeat;
+        min-height: 100%;
+
+      }
+
+      .w3-bar .w3-button {
+        padding: 16px;
+      }
+
+      .title {
+        font-family: 'Gugi', cursive;
+        font-size: 60px;
+        background: linear-gradient(to right top, #ffa69e);
+        color: transparent;
+        /* -webkit-background-clip: text; */
+
+        text-shadow: 1px 1px 2px rgb(38, 34, 77);
+        -webkit-text-stroke: 1px white;
+
+
+      }
+
+
+      /* 실험용 */
+
+
+
+      .input-url {
+        position: relative;
+        top: 50%;
+        left: 20%;
+        width: 350px;
+        height: 40px;
+        border-radius: 40px;
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        transform: translate(-50%, -50%);
+        background: #fff;
+        transition: all 0.3s ease;
+        outline: none;
+      }
+      /* 실험용 */
+
+    }
+  </style>
+  <script>
+    // url 받는 박스
+    function checkUrl() {
+      var url = document.getElementById("url").value;
+      if (url.includes("youtube.com/watch?v=") || url.includes("youtu.be/")) {
+        return true;
+      } else {
+        alert("youtube의 동영상 url만 입력가능합니다.");
+        return false;
+      }
+    }
+
+    function contact(val) {
+      if (val == 1) {
+        alert("powerpress0809@naver.com");
+      } else if (val == 2) {
+        alert("banana_split@naver.com");
+      } else if (val == 3) {
+        alert("bshyun1199@naver.com");
+      } else {
+        alert("sorpwjdafh@naver.com");
+      }
+    }
+  </script>
+  <body>
+    <!-- Navbar (sit on top) -->
+    <div class="w3-top">
+      <div class="w3-bar w3-white w3-card" id="myNavbar">
+        <a href="/" class="w3-bar-item w3-button w3-wide">감정분석</a>
+        <!-- Right-sided navbar links -->
+        <div class="w3-right w3-hide-small">
+          <a
+            href="http://127.0.0.1:5000/board?emotion=Angry&amp;page=1"
+            class="w3-bar-item w3-button"
+            >화남</a
+          >
+
+          <a
+            href="http://127.0.0.1:5000/board?emotion=Embarrassment&amp;page=1"
+            class="w3-bar-item w3-button"
+            >당황</a
+          >
+          <a
+            href="http://127.0.0.1:5000/board?emotion=Happy&amp;page=1"
+            class="w3-bar-item w3-button"
+            >기쁨</a
+          >
+          <a
+            href="http://127.0.0.1:5000/board?emotion=Sad&amp;page=1"
+            class="w3-bar-item w3-button"
+            >슬픔</a
+          >
+        </div>
+        <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+      </div>
+    </div>
+
+    <!-- Sidebar on small screens when clicking the menu icon -->
+    <nav
+      class="
+        w3-sidebar
+        w3-bar-block
+        w3-black
+        w3-card
+        w3-animate-left
+        w3-hide-medium
+        w3-hide-large
+      "
+      style="display: none"
+      id="mySidebar"
+    >
+      <a
+        href="javascript:void(0)"
+        onclick="w3_close()"
+        class="w3-bar-item w3-button w3-large w3-padding-16"
+        >Close ×</a
+      >
+      <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button"
+        >ABOUT</a
+      >
+      <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button"
+        >TEAM</a
+      >
+      <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button"
+        >WORK</a
+      >
+      <a href="#pricing" onclick="w3_close()" class="w3-bar-item w3-button"
+        >PRICING</a
+      >
+      <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button"
+        >CONTACT</a
+      >
+    </nav>
+
+    <!-- Header with full-height image -->
+    <header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
+      <div class="w3-display-left w3-text-black" style="padding: 48px">
+        <span class="w3-jumbo w3-hide-small title"
+          >영상에 나온 감정이 궁금하지않니? </span
+        ><br />
+        <span class="w3-xxlarge w3-hide-large w3-hide-medium"></span><br />
+        <span class="w3-large">
+          <form action="loader" method="post" onsubmit="return checkUrl();">
+            <input
+              type="text"
+              size="60"
+              placeholder="한글자막이 존재하는 youtube URL을 넣어주세요."
+              name="url"
+              id="url"
+            />
+            <input
+              type="submit"
+              class="w3-button w3-blue w3-padding-small w3-wide w3-round"
+              value="분석시작"
+            />
+          </form>
+        </span>
+      </div>
+      <div
+        class="w3-display-bottomleft w3-text-grey w3-large"
+        style="padding: 24px 48px"
+      ></div>
+    </header>
+
+    <!-- Work Section -->
+    <div
+      class="w3-container w3-light-grey"
+      style="padding: 128px 16px"
+      id="work"
+    >
+      <h1 class="w3-center">
+        <i class="fa fa-search w3-margin-right"></i>분석 절차
+      </h1>
+      <h2 class="w3-center w3-large">
+        어떤식으로 영상의 감정이 분류되는지 확인해보세요.
+      </h2>
+      <hr style="border: 0; height: 1px; background: #ccc; margin: 0 auto" />
+      <div class="w3-center w3-large">
+        <p>
+          1. 사용자가 원하는 동영상의 youtube URL을 업로드 받아서 해당 동영상의
+          자막과 얼굴표정을 기반으로 AI로 영상의 주류감정을 도출
+        </p>
+        <p>
+          2.1. AI의 영상분석결과로 얻어진 영상의 주류감정을 카테고리화하여 다른
+          사람들도 해당영상을 같이 볼 수 있다.
+        </p>
+        <p>
+          2.2. 사용자에게 받은 youtube URL의 영상을 AI로 분석한 결과를 보여준다.
+        </p>
+      </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="w3-container" style="padding: 128px 16px" id="about">
+      <h1 class="w3-center">제작 동기</h1>
+      <h2 class="w3-center w3-large">감정 표현을 배웠으면 좋겠다..</h2>
+      <hr style="border: 0; height: 1px; background: #ccc; margin: 0 auto" />
+      <div style="width: 80%; margin: 0 auto">
+        <p class="w3-center w3-large">
+          최근 신세대들의 대화내용에서 감정표현이 단순하다는 것을 느꼈다.
+          기쁠때도 와 대박!, 놀랐을때도 와 대박!같이 특정 단어들만 이용해서
+          자신의 감정을 표현하는 것을 보고 이러한 경향이 지속되면 결국 진짜 자기
+          자신이 전달하고 싶던 내용과는 다르게 소통문제가 발생할 수도 있다라고
+          우리는 생각하였다. 그래서 우리의 플랫폼을 이용하여서 자신들이 좋아하는
+          컨텐츠를 보면서 컨텐츠에서 표현하는 다양한 감정들을 보고 "이럴 때는
+          이런 단어도 사용할 수 있구나."라고 느껴주었으면 하여서 개발을 하게
+          되었다.
+        </p>
+      </div>
+    </div>
+
+    <!-- Team Section -->
+    <div
+      class="w3-container w3-light-grey"
+      style="padding: 128px 16px"
+      id="team"
+    >
+      <i class="fa fa-flower w3-margin-right"></i>
+      <h1 class="w3-center">엔지니어</h1>
+      <h2 class="w3-center w3-large">
+        <i class="fa fa-male w3-margin-right"></i>엔지니어들을 소개합니다.<i
+          class="fa fa-female w3-margin-left"
+        ></i>
+      </h2>
+      <hr style="border: 0; height: 1px; background: #ccc; margin: 0 auto" />
+      <div class="w3-row-padding w3-grayscale" style="margin-top: 64px">
+        <div class="w3-col l3 m6 w3-margin-bottom">
+          <div class="w3-card">
+            <img
+              src="../static/source/신정훈.jpg"
+              style="
+                width: 100%;
+                height: 400px;
+                image-rendering: -webkit-optimize-contrast;
+              "
+            />
+            <div class="w3-container">
+              <h3>신정훈</h3>
+              <p class="w3-opacity">데이터 전처리</p>
+              <p>
+                웹 디자인<br />
+                이미지 모델 관련 전처리<br />
+                Flask를 이용한 데이터 연동
+              </p>
+              <p>
+                <button
+                  class="w3-button w3-light-grey w3-block"
+                  onclick="contact(1)"
+                >
+                  <i class="fa fa-envelope"></i> Contact
+                </button>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="w3-col l3 m6 w3-margin-bottom">
+          <div class="w3-card">
+            <img
+              src="../static/source/사진.png"
+              style="width: 100%; height: 400px"
+            />
+            <div class="w3-container">
+              <h3>임정원</h3>
+              <p class="w3-opacity">웹</p>
+              <p>
+                웹 디자인 및 설계<br />
+                NLP 모델 관련 전처리<br />
+                Flask를 이용한 데이터 연동
+              </p>
+              <p>
+                <button
+                  class="w3-button w3-light-grey w3-block"
+                  onclick="contact(2)"
+                >
+                  <i class="fa fa-envelope"></i> Contact
+                </button>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="w3-col l3 m6 w3-margin-bottom">
+          <div class="w3-card">
+            <img
+              src="../static/source/박수현.jpg"
+              style="width: 100%; height: 400px"
+            />
+            <div class="w3-container">
+              <h3>박수현</h3>
+              <p class="w3-opacity">자연어 모델</p>
+              <p>
+                NLP 모델 관련 전처리 및 설계<br />
+                Flask를 이용한 데이터 연동<br />
+                영상에서 추출한 정보를 DB에 저장
+              </p>
+              <p>
+                <button
+                  class="w3-button w3-light-grey w3-block"
+                  onclick="contact(3)"
+                >
+                  <i class="fa fa-envelope"></i> Contact
+                </button>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="w3-col l3 m6 w3-margin-bottom">
+          <div class="w3-card">
+            <img
+              src="../static/source/이승민.png"
+              style="
+                width: 100%;
+                height: 400px;
+                image-rendering: -webkit-optimize-contrast;
+                transform: translateZ(0);
+                backface-visibility: hidden;
+              "
+            />
+            <div class="w3-container">
+              <h3>이승민</h3>
+              <p class="w3-opacity">이미지 모델</p>
+              <p>
+                이미지 모델 관련 전처리 및 설계<br />
+                Flask를 이용한 데이터 연동<br />
+                DB설계 및 Flask와 연동
+              </p>
+              <p>
+                <button
+                  class="w3-button w3-light-grey w3-block"
+                  onclick="contact(4)"
+                >
+                  <i class="fa fa-envelope"></i> Contact
+                </button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for full size images on click-->
+    <div
+      id="modal01"
+      class="w3-modal w3-black"
+      onclick="this.style.display='none'"
+    >
+      <span
+        class="
+          w3-button w3-xxlarge w3-black w3-padding-large w3-display-topright
+        "
+        title="Close Modal Image"
+        >×</span
+      >
+      <div
+        class="
+          w3-modal-content
+          w3-animate-zoom
+          w3-center
+          w3-transparent
+          w3-padding-64
+        "
+      >
+        <img id="img01" class="w3-image" />
+        <p id="caption" class="w3-opacity w3-large"></p>
+      </div>
+    </div>
+
+    <!-- Skills Section -->
+    <div class="w3-container w3-padding-64">
+      <div class="w3-row-padding">
+        <div class="w3-col m6">
+          <h3>보유 스킬</h3>
+          <p>
+            keras를 이용한 자연어 분석, pytorch를 이용한 이미지 분석<br />
+            CNN을 이용한 모델 설계 가능
+          </p>
+          <p>
+            Vue.js를 이용한 웹사이트 개발<br />
+            HTML, CSS, Bootstrap과 Vue.js를 연계하여 파워풀하게 웹페이지 개발
+            가능
+          </p>
+        </div>
+        <div class="w3-col m6">
+          <p class="w3-wide">
+            <i class="fa fa-ravelry w3-margin-right"></i>Deep learning
+          </p>
+          <div class="w3-grey">
+            <div class="w3-container w3-dark-grey w3-center" style="width: 90%">
+              90%
+            </div>
+          </div>
+          <p class="w3-wide">
+            <i class="fa fa-desktop w3-margin-right"></i>Web Design
+          </p>
+          <div class="w3-grey">
+            <div class="w3-container w3-dark-grey w3-center" style="width: 85%">
+              85%
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="w3-center w3-black w3-padding-64">
+      <a href="#" class="foobtn w3-button w3-#f889d3 scrollToTop"
+        ><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a
+      >
+
+      <p>
+        Powered by
+        <a title="W3.CSS" target="_blank" class="w3-hover-text-green"
+          >Playdata Group 6</a
+        >
+      </p>
+    </footer>
+  </body>
+</html>

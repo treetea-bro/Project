@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>감정 분석 게시판</title>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Raleway"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="../static/css/board.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+
+    <!-- Load required Bootstrap and BootstrapVue CSS -->
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css"
+    />
+
+    <!-- Load polyfills to support older browsers -->
+    <script
+      src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Load Vue followed by BootstrapVue -->
+    <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+    <style>
+      body,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Raleway", sans-serif;
+      }
+
+      body,
+      html {
+        height: 100%;
+        line-height: 1.8;
+      }
+      /* Full height image header */
+
+      .bgimg-1 {
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        min-height: 100%;
+      }
+
+      .w3-bar .w3-button {
+        padding: 16px;
+      }
+
+      .page {
+        margin: 0px, 5px, 10px, 5px;
+      }
+    </style>
+    <script>
+      var contents = {{contents|tojson}};
+      window.onload = function () {
+        new Vue({
+          el: "#app",
+          delimiters:['[[',']]'],
+          data() {
+            return {
+              loading: true,
+              errored: false,
+              v_page_num: 0,
+              contents: [],
+            };
+          },
+          mounted() {
+            this.contents = contents;
+          },
+          methods: {
+            linkGen(pageNum) {
+              return `?emotion={{emo}}&page=${pageNum}`;
+            },
+          },
+        });
+      };
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="myNavbar">
+          <a href="http://127.0.0.1:5000" class="w3-bar-item w3-button w3-wide"
+            >감정분석</a
+          >
+          <div class="w3-right w3-hide-small">
+            <a
+              href="http://127.0.0.1:5000/board?emotion=Angry&amp;page=1"
+              class="w3-bar-item w3-button"
+              >화남</a
+            >
+
+            <a
+              href="http://127.0.0.1:5000/board?emotion=Embarrassment&amp;page=1"
+              class="w3-bar-item w3-button"
+              >당황</a
+            >
+            <a
+              href="http://127.0.0.1:5000/board?emotion=Happy&amp;page=1"
+              class="w3-bar-item w3-button"
+              >기쁨</a
+            >
+            <a
+              href="http://127.0.0.1:5000/board?emotion=Sad&amp;page=1"
+              class="w3-bar-item w3-button"
+              >슬픔</a
+            >
+          </div>
+        </div>
+      </div>
+      <div style="height: 30px"></div>
+      <template>
+        <div class="overflow-auto">
+          <div class="content-wrap" id="my_contents">
+            <div class="board-wrap">
+              <ul class="board-gallery-list">
+                <li v-for="content in contents">
+                  <div class="board-gallery-box" style="text-align: center">
+                    <a
+                      :href="'result?id=' + content.id + 
+                      '&amp;emotion=' + content.emotion + '&amp;url=' + content.url"
+                      class="board-gallery-img-wrap"
+                    >
+                      <img
+                        :src="content.image"
+                        alt=""
+                        width="350px"
+                        height="350px"
+                      />
+                    </a>
+
+                    <a
+                      :href="'result?id=' + content.id + 
+                      '&amp;emotion=' + content.emotion + '&amp;url=' + content.url"
+                      class="board-gallery-title"
+                    >
+                      [[content.title]]
+                    </a>
+
+                    <span v-text="content.date"></span>
+                  </div>
+                </li>
+              </ul>
+              <b-pagination-nav
+                style="margin: 0 auto; width: 200px"
+                :link-gen="linkGen"
+                :number-of-pages="{{page_len}}"
+                use-router
+              ></b-pagination-nav>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+  <title>분석 결과</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Raleway"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Black+And+White+Picture&family=Black+Han+Sans&family=Cute+Font&family=Do+Hyeon&family=Dokdo&family=East+Sea+Dokdo&family=Gaegu&family=Gamja+Flower&family=Gothic+A1&family=Gugi&family=Hi+Melody&family=Jua&family=Kirang+Haerang&family=Nanum+Brush+Script&family=Nanum+Gothic&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&family=Nanum+Pen+Script&family=Noto+Sans+KR&family=Noto+Serif+KR&family=Poor+Story&family=Single+Day&family=Song+Myung&family=Stylish&family=Sunflower:wght@300&family=Yeon+Sung&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
+  <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
+  <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+  <style>
+    /* 스타일도 여기서부터 */
+    * {
+      box-sizing: border-box;
+    }
+    video {
+      width: 100%;
+      height: auto;
+    }
+    .row {
+      width: 800;
+      height: auto;
+      background-color: ghostwhite;
+      position: center;
+      text-align: center;
+    }
+    [class*="col-"] {
+      float: center;
+      padding: 15px;
+      width: 100%;
+    }
+
+    /* 반응형 사이즈 */
+    @media only screen and (min-width: 600px) {
+      .col-s-1 {
+        width: 8.33%;
+      }
+      .col-s-2 {
+        width: 16.66%;
+      }
+      .col-s-3 {
+        width: 25%;
+      }
+      .col-s-4 {
+        width: 33.33%;
+      }
+      .col-s-5 {
+        width: 41.66%;
+      }
+      .col-s-6 {
+        width: 50%;
+      }
+      .col-s-7 {
+        width: 58.33%;
+      }
+      .col-s-8 {
+        width: 66.66%;
+      }
+      .col-s-9 {
+        width: 75%;
+      }
+      .col-s-10 {
+        width: 83.33%;
+      }
+      .col-s-11 {
+        width: 91.66%;
+      }
+      .col-s-12 {
+        width: 100%;
+      }
+    }
+
+    @media only screen and (min-width: 768px) {
+      .col-1 {
+        width: 8.33%;
+      }
+      .col-2 {
+        width: 16.66%;
+      }
+      .col-3 {
+        width: 25%;
+      }
+      .col-4 {
+        width: 33.33%;
+      }
+      .col-5 {
+        width: 41.66%;
+      }
+      .col-6 {
+        width: 50%;
+      }
+      .col-7 {
+        width: 58.33%;
+      }
+      .col-8 {
+        width: 66.66%;
+      }
+      .col-9 {
+        width: 75%;
+      }
+      .col-10 {
+        width: 83.33%;
+      }
+      .col-11 {
+        width: 91.66%;
+      }
+      .col-12 {
+        width: 100%;
+      }
+    }
+    /* 반응형 사이즈 */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Lato", sans-serif;
+    }
+
+    /* Style the tab */
+    .tab {
+      float: left;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+      width: 30%;
+      height: 300px;
+    }
+
+    /* Style the buttons inside the tab */
+    .tab button {
+      display: block;
+      background-color: inherit;
+      color: black;
+      padding: 22px 16px;
+      width: 100%;
+      border: none;
+      outline: none;
+      text-align: left;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 17px;
+    }
+
+    /* Style the tab content */
+    .tabcontent {
+      float: left;
+      padding: 0px 12px;
+      border: 1px solid #ccc;
+      width: 70%;
+      border-left: none;
+      height: 300px;
+    }
+    /* 여기까지 */
+
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: "Raleway", sans-serif;
+    }
+
+    body,
+    html {
+      height: 100%;
+      line-height: 1.8;
+    }
+
+    /* Full height image header */
+    .bgimg-1 {
+      background-position: center;
+      background-size: cover;
+      background-image: url("../static/img/123.png");
+      background-repeat: no-repeat;
+      min-height: 100%;
+    }
+
+    .w3-bar .w3-button {
+      padding: 16px;
+    }
+
+    .w2-cell-row {
+      margin: auto;
+      display: grid;
+      grid-template-columns: 740px 330px; /* 각 행(세로줄)의 길이 */
+      grid-template-rows: 120px 310px 890px 130px; /* 각 열(가로줄)의 길이 */
+      gap: 10px; /* 자식요소간의 간격 */
+    }
+
+    .w3-cell-row {
+      background: yellow;
+      width: 100%;
+      height: 100%;
+      font-size: 40px;
+      border: 1px solid #dee3eb;
+      text-align: center;
+    }
+    .box-three {
+      display: flex;
+      flex-direction: column; /* 세로 정렬 */
+      border: none; /* border를 지우고 3-1과 3-2에 각각 border를 적용해줍니다. */
+    }
+    .list_item {
+      display: inline-block;
+      width: 150px;
+      height: 125px;
+      margin: 2px;
+      overflow: hidden;
+    }
+    .w3-half {
+      background-color: #f7cac9;
+    }
+  </style>
+  <script>
+    function validation(val) {
+      if (val == "script") {
+        alert("해당 영상에 한글자막 정보가 없습니다.");
+        location.href = "/";
+      } else if (val == "address") {
+        alert("주소가 잘못되었습니다.");
+        location.href = "/";
+      }
+    }
+
+    function set_movie_time(object) {
+      const arr = object.innerHTML.split(":");
+      var result = 0;
+      result += Number(arr[0]) * 3600;
+      result += Number(arr[1]) * 60;
+      result += Number(arr[2]);
+      player.seekTo(result);
+    }
+  </script>
+  {% if state == "script" %}
+  <body onload="validation('script')"></body>
+  {% elif state == "address" %}
+  <body onload="validation('address')"></body>
+  {% else %}
+  <body>
+    <!-- 네비게이션 영역은 고정되어 있습니다. (sit on top) -->
+    <div class="w3-top">
+      <div class="w3-bar w3-white w3-card" id="myNavbar">
+        <a href="/" class="w3-bar-item w3-button w3-wide">감정분석</a>
+        <!-- Right-sided navbar links -->
+        <div class="w3-right w3-hide-small">
+          <a
+            href="http://127.0.0.1:5000/board?emotion=Angry&amp;page=1"
+            class="w3-bar-item w3-button"
+            >화남</a
+          >
+
+          <a
+            href="http://127.0.0.1:5000/board?emotion=Embarrassment&amp;page=1"
+            class="w3-bar-item w3-button"
+            >당황</a
+          >
+          <a
+            href="http://127.0.0.1:5000/board?emotion=Happy&amp;page=1"
+            class="w3-bar-item w3-button"
+            >기쁨</a
+          >
+          <a
+            href="http://127.0.0.1:5000/board?emotion=Sad&amp;page=1"
+            class="w3-bar-item w3-button"
+            >슬픔</a
+          >
+        </div>
+      </div>
+    </div>
+    <!-- First Grid: Logo & About -->
+    <div class="w3-row">
+      <!-- 비디오 -->
+      <div
+        class="w3-half w3-black w3-container w3-center"
+        style="min-height: 800px"
+      >
+        <div class="w3-padding-64" "w3-padding-16">
+        <h1 id="title_emotion"></h1>
+        <div id="ytplayer" style="width: 80%; height: 500px"></div>
+
+        <div class="w3-padding-32"><!-- 간격 조정용 --></div>
+      </div>
+    </div>
+    <!-- 이미지 -->
+    <div class="w3-half w3-center" style="min-height: 800px" id="work">
+      <div class="w3-row" style="min-height: 500px">
+        <div style="min-width: 500px">
+          <img
+            id="image"
+            style="width: 80%; height: 400px; margin-top: 100px; border: none"
+            onclick="onClick(this)"
+            class="w3-hover-opacity"
+          />
+        </div>
+      </div>
+
+      <div style="margin-top: 30px">
+        <img id="emoticon" />
+        <textarea
+          id="textarea"
+          style="
+            width: 70%;
+            height: 200px;
+            resize: none;
+            background-color: transparent;
+            font-size: 25px;
+            border: none;
+            float: right;
+          "
+          readonly
+        ></textarea>
+      </div>
+    </div>
+    <!-- 이미지 클릭시 모달 팝업 -->
+    <div
+      id="modal01"
+      class="w3-modal w3-black"
+      onclick="this.style.display='none'"
+    >
+      <span
+        class="
+          w3-button w3-xxlarge w3-black w3-padding-large w3-display-topright
+        "
+        title="Close Modal Image"
+        >×</span
+      >
+      <div
+        class="
+          w3-modal-content
+          w3-animate-zoom
+          w3-center
+          w3-transparent
+          w3-padding-64
+        "
+      >
+        <img id="img01" class="w3-image" />
+        <p id="caption" class="w3-opacity w3-large"></p>
+      </div>
+    </div>
+
+    <!-- 헷갈린다.. 새로 추가한 영역입니다. 요기까지~~ -->
+
+    <div class="w3-container" style="padding: 128px 16px" id="work">
+      <!-- 텍스트 영역-->
+      <div class="w3-container">
+        <center>
+          <h2>스크립트</h2>
+          <p>다음과 같습니다.</p>
+        </center>
+
+        <input
+          type="radio"
+          id="script"
+          name="radio_button"
+          value="script"
+          onchange="script_change()"
+          checked
+        />
+        <label for="script">대사</label>
+        <input
+          type="radio"
+          id="emotion"
+          name="radio_button"
+          value="emotion"
+          onchange="script_change()"
+        />
+        <label for="emotion">감정</label>
+
+        <input
+          class="w3-input w3-border w3-padding"
+          type="text"
+          placeholder="입력한 글자가 포함된 대사만 노출"
+          id="myInput"
+          onkeyup="script_change()"
+        />
+
+        <table class="w3-table-all w3-margin-top" id="myTable">
+          <tr>
+            <th style="width: 80%">대사</th>
+            <th style="width: 10%">감정</th>
+            <th style="width: 10%">시간</th>
+          </tr>
+
+          <tr v-for="content in orderedScripts">
+            <td>[[content.text]]</td>
+            <td v-if="content.text_emotion == 'Happy'">행복</td>
+            <td v-else-if="content.text_emotion == 'Sad'">슬픔</td>
+            <td v-else-if="content.text_emotion == 'Neutral'">중립</td>
+            <td v-else-if="content.text_emotion == 'Angry'">화남</td>
+            <td v-else>당황</td>
+            <td>
+              <a href="#" onclick="set_movie_time(this)">[[content.H_M_S]]</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="w3-center w3-black w3-padding-64">
+      <a href="#" class="foobtn w3-button w3-#f889d3 scrollToTop"
+        ><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a
+      >
+
+      <p>
+        Powered by
+        <a title="W3.CSS" target="_blank" class="w3-hover-text-green"
+          >Playdata Group 6</a
+        >
+      </p>
+    </footer>
+
+    <script>
+      // Modal Image Gallery
+      function onClick(element) {
+        document.getElementById("img01").src = element.src;
+        document.getElementById("modal01").style.display = "block";
+        var captionText = document.getElementById("caption");
+        captionText.innerHTML = element.alt;
+      }
+
+      // Toggle between showing and hiding the sidebar when clicking the menu icon
+      var mySidebar = document.getElementById("mySidebar");
+
+      function w3_open() {
+        if (mySidebar.style.display === "block") {
+          mySidebar.style.display = "none";
+        } else {
+          mySidebar.style.display = "block";
+        }
+      }
+
+      // Close the sidebar with the close button
+      function w3_close() {
+        mySidebar.style.display = "none";
+      }
+    </script>
+
+    <script>
+      function select_td(tr, td, filter, i){
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
+      }
+
+      function script_change() {
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        var radio = document.getElementsByName('radio_button');
+        if(radio[0].checked){
+          for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[0];
+          select_td(tr, td, filter, i);
+        }
+        }else{
+          for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[1];
+          select_td(tr, td, filter, i);
+        }
+        }
+      }
+
+      var data = {{data|tojson}};
+      var title_emotion = document.getElementById("title_emotion");
+      if (data[0]["emotion"] == "Angry") title_emotion.innerText = "화남";
+      else if (data[0]["emotion"] == "Embarrassment") title_emotion.innerText = "당황";
+      else if (data[0]["emotion"] == "Happy") title_emotion.innerText = "기쁨";
+      else if (data[0]["emotion"] == "Sad") title_emotion.innerText = "슬픔";
+      var player;
+      var videotime = 0;
+      // 1. ytplayer code: https://developers.google.com/youtube/player_parameters#IFrame_Player_API
+      var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/player_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        function onYouTubePlayerAPIReady() {
+          player = new YT.Player('ytplayer', {
+            videoId: '{{url}}'
+        });
+          function updateTime() {
+          var oldTime = videotime;
+          if(player && player.getCurrentTime) {
+            videotime = player.getCurrentTime();
+            videotime_f = videotime.toFixed(1);
+            //parseFloat(videotime_f);
+          }
+          if(videotime !== oldTime) {
+            if(data[0]["pic_time"][videotime_f]){
+              document.getElementById("image").src = "../static/img/" + data[0]["emotion"] + "/" +
+              data[0]["id"] + "_" + data[0]["date"].replace(/\./gi, "") + "/" + videotime_f + ".jpg";
+              document.getElementById("emoticon").src = "../static/source/" + data[0]["pic_time"][videotime_f]["pic_emotion"] + ".png";
+              if(data[0]["pic_time"][videotime_f]["text_emotion"] != "Neutral" && data[0]["pic_time"][videotime_f]["text_emotion"] == data[0]["pic_time"][videotime_f]["pic_emotion"]){
+                document.getElementById("textarea").style.color = "red";
+                document.getElementById("textarea").value = data[0]["pic_time"][videotime_f]["text"];
+              }
+              else{
+                document.getElementById("textarea").style.color = "black";
+                document.getElementById("textarea").value = data[0]["pic_time"][videotime_f]["text"];
+              }
+            }
+          }
+        }
+        timeupdater = setInterval(updateTime, 5);
+        }
+
+        new Vue({
+        el: "#myTable",
+        delimiters: ["[[", "]]"],
+        data() {
+          return {
+            contents: []
+          };
+        },
+        mounted() {
+          this.contents = data[0]["pic_time"];
+        },
+        computed: {
+          orderedScripts: function(){
+            return _.orderBy(this.contents, 'H_M_S');
+          }
+        }
+      });
+    </script>
+  </body>
+  {% endif %}
+</html>

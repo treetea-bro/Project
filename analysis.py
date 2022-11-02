@@ -9,8 +9,10 @@ from youtube_transcript_api import YouTubeTranscriptApi
 import pandas as pd
 from konlpy.tag import Okt
 import tensorflow as tf
-from tensorflow.keras.preprocessing.sequence import pad_sequences
-from tensorflow.keras.preprocessing.text import Tokenizer
+#from tensorflow.keras.preprocessing.sequence import pad_sequences
+#from tensorflow.keras.preprocessing.text import Tokenizer
+from keras.preprocessing.sequence import pad_sequences
+from keras.preprocessing.text import Tokenizer
 
 mongo = mongoC()
 
